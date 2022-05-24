@@ -1,0 +1,12 @@
+(mod ()
+    (defun digit_to_char (d) (+ 48 d))
+    (defun int_to_str (i) 
+        (concat 
+            (digit_to_char (f (divmod i 10)))
+            (digit_to_char (r (divmod i 10)))
+        )
+        
+    )
+    ; (digit_to_char 9)
+    (int_to_str 12)
+)
