@@ -1,0 +1,30 @@
+(mod (
+        my_amount
+        new_amount
+        my_puzzlehash
+    )
+    (defconstant TARGET_PUZZLEHASH 500)
+    (defconstant CASH_OUT_PUZZLE_HASH 0xcafef00d)
+
+    (include condition_codes.clib)
+    (defun-inline recreate_self (my_amount new_amount my_puzzlehash)
+        (list
+            (list CREATE_COIN my_puzzlehash new_amount)
+        )
+    )
+    (defun-inline cash_out (CASH_OUT_PUZZLE_HASH my_amount new_amount my_puzzlehash)
+        (list
+            (list CREATE_COIN CASH_OUT_PUZZLE_HASH new_amount)
+            (list CREATE_COIN my_amount my_puzzlehash 0)
+        )
+    )
+    ; main
+    (if(> new_amount my_amount)
+        (if (> new_amount TAGET_AMOUNT)
+            (cash_out CASH_OUT_PUZZLE_HASH my_amount new_amount my_puzzlehash)
+            (recreate_self my_amount new_amount my_puzzlehash)
+
+        )
+        (x)
+    )
+)
